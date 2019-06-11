@@ -7,19 +7,44 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "inspect": "node --inspect=5858 -r ts-node/register ./src/server.ts",
+    "start": "node -r ts-node/register ./src/server.ts",
+    "start:watch": "nodemon && livereload",
+    "livereload": "livereload"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "@types/express-handlebars": "0.0.32",
+    "eslint": "^5.16.0",
+    "eslint-plugin-import": "^2.17.2",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.1.0",
+    "handlebars": "^4.1.2",
+    "livereload": "^0.8.0"
   },
   "devDependencies": {
     "@types/express": "^4.16.1",
     "@types/node": "^12.0.1",
+    "nodemon": "^1.19.1",
+    "ts-node": "^8.1.0",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src",
+      "views"
+    ],
+    "exec": "npm run inspect",
+    "ext": "ts hbs"
   }
 }
